@@ -8,14 +8,30 @@
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
-
         
+        // window resize event
+        window.addEventListener('resize', function(){
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // create shape
+        var geometry = new THREE.BoxGeometry(1,1,1);
+        
+        // create material, color, image texture
+        var material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe:false});
+        var cube = new THREE.Mesh(geometry,material);
+        scene.add(cube);
 
         camera.position.z = 3;
 
         // update [game lagic]
         var update = function(){
-           
+            cube.rotation.x += 0.005;
+            cube.rotation.y += 0.005;
         };
 
         // render
